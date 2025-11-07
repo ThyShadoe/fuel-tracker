@@ -1,9 +1,9 @@
 #include "FuelEntryManager.h"
+#include <cstdlib>
 
 class FuelTrackerMain {
 public:
   void displayMenu() {
-    cout << endl;
     cout << "+---------------------------------+\n"
          << "| VEHICLE FUEL EFFICIENCY TRACKER |\n"
          << "|---------------------------------|\n"
@@ -20,9 +20,11 @@ public:
     int choice;
 
     do {
+      system("clear");
       displayMenu();
       cout << "Select Menu Option (0-4): ";
       cin >> choice;
+      cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
       switch (choice) {
       case 0:
