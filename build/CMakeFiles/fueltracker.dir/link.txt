@@ -1,0 +1,1 @@
+/usr/sbin/c++ -Wl,--dependency-file=CMakeFiles/fueltracker.dir/link.d CMakeFiles/fueltracker.dir/src/main.cpp.o -o fueltracker
