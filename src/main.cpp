@@ -11,6 +11,7 @@ public:
          << "| [2] Remove Fuel Entry           |\n"
          << "| [3] Generate Report             |\n"
          << "| [4] Calculate Fuel Efficiency   |\n"
+         << "| [5] Configure Settings          |\n"
          << "|---------------------------------|\n"
          << "| [0] Exit Program                |\n"
          << "+---------------------------------+\n";
@@ -22,7 +23,7 @@ public:
     do {
       system("clear");
       displayMenu();
-      cout << "Select Menu Option (0-4): ";
+      cout << "Select Menu Option (0-5): ";
       cin >> choice;
       cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
@@ -46,9 +47,13 @@ public:
         system("clear");
         fuelEntryMgr.CalculateEfficiency();
         break;
+      case 5:
+        system("clear");
+        fuelEntryMgr.ConfigureSettings();
+        break;
       default:
         system("clear");
-        cout << "Invalid Option: Select 0-4.\n";
+        cout << "Invalid Option: Select 0-5.\n";
         this_thread::sleep_for(chrono::seconds(2));
         break;
       }
