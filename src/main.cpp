@@ -1,29 +1,26 @@
 #include "FuelEntryManager.h"
-#include <cstdlib>
 
-class FuelTrackerMain {
+class FuelTracker {
 public:
   void displayMenu() {
     cout << "+---------------------------------+\n"
          << "| VEHICLE FUEL EFFICIENCY TRACKER |\n"
-         << "|---------------------------------|\n"
-         << "| [1] Enter Fuel Entry            |\n"
-         << "| [2] Remove Fuel Entry           |\n"
+         << "+---------------------------------+\n"
+         << "| [1] Add Fuel Entry              |\n"
+         << "| [2] Manage Entries              |\n"
          << "| [3] Generate Report             |\n"
-         << "| [4] Calculate Fuel Efficiency   |\n"
-         << "| [5] Configure Settings          |\n"
-         << "|---------------------------------|\n"
+         << "+---------------------------------+\n"
          << "| [0] Exit Program                |\n"
          << "+---------------------------------+\n";
   }
 
   void run() {
-    int choice;
 
+    int choice;
     do {
       system("clear");
       displayMenu();
-      cout << "Select Menu Option (0-5): ";
+      cout << "Select Menu Option: ";
       cin >> choice;
       cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
@@ -37,23 +34,15 @@ public:
         break;
       case 2:
         system("clear");
-        fuelEntryMgr.RemoveFuelEntry();
+        fuelEntryMgr.ManageFuelEntries();
         break;
       case 3:
         system("clear");
         fuelEntryMgr.GenerateReport();
         break;
-      case 4:
-        system("clear");
-        fuelEntryMgr.CalculateEfficiency();
-        break;
-      case 5:
-        system("clear");
-        fuelEntryMgr.ConfigureSettings();
-        break;
       default:
         system("clear");
-        cout << "Invalid Option: Select 0-5.\n";
+        cout << "Invalid Option: Select 1-3 or 0 to exit.\n";
         this_thread::sleep_for(chrono::seconds(2));
         break;
       }
@@ -67,10 +56,9 @@ private:
 
 int main(int argc, char *argv[]) {
 
-  // clears the console before starting the function
   system("clear");
-  FuelTrackerMain main;
-  main.run();
+  FuelTracker fueltracker;
+  fueltracker.run();
 
   return 0;
 }
