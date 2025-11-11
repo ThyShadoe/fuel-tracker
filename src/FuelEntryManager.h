@@ -2,8 +2,11 @@
 #include <iomanip>
 #include <iostream>
 #include <limits>
+#include <regex>
+#include <string>
 #include <thread>
 #include <vector>
+
 #ifndef FUEL_ENTRY_MANAGER_H
 #define FUEL_ENTRY_MANAGER_H
 
@@ -70,7 +73,7 @@ public:
     double distanceDriven, fuelConsumed, fuelPrice;
     // TODO: Add validation for date input
     while (true) {
-      string date_format;
+      regex date_format;
       cout << "Enter entry date (YYYY-MM-DD): ";
       getline(cin, date);
       break;
@@ -139,7 +142,7 @@ public:
            << "| TRIP ENTRY NO. " << i + 1 << endl;
       entries[i].displayEntry();
     }
-    this_thread::sleep_for(chrono::seconds(2));
+    this_thread::sleep_for(chrono::seconds(1));
     cout << "\nPress Enter to continue...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
   }
