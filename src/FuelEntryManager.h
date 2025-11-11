@@ -206,8 +206,17 @@ public:
          << "+---------------------------------+\n"
          << "| [0] Exit                        |\n"
          << "+---------------------------------+\n";
-    cout << "Select Menu Option: ";
-    cin >> choice;
+    while (true) {
+      cout << "Select Menu Option: ";
+      cin >> choice;
+      if (cin.fail()) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        continue;
+      } else {
+        break;
+      }
+    }
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     switch (choice) {
