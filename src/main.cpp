@@ -1,7 +1,4 @@
 #include "FuelEntryManager.h"
-#ifdef _WIN32
-#include <Windows.h>
-#endif
 
 void clrscr() {
 #ifdef _WIN32

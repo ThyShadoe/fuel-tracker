@@ -4,10 +4,13 @@
 #include <limits>
 #include <thread>
 #include <vector>
-#ifdef FUELENTRYMANAGER_H
-#define FUELENTRYMANAGER_H
+#ifndef FUEL_ENTRY_MANAGER_H
+#define FUEL_ENTRY_MANAGER_H
 
-void clrsrc();
+#ifdef _WIN32
+#include <Windows.h>
+#endif
+void clrscr();
 
 #endif
 
@@ -122,7 +125,8 @@ public:
 
     entries.emplace_back(date, distanceDriven, fuelConsumed, fuelPrice);
 
-    system("clear");
+    clrscr();
+    // clrscr();
     cout << "Trip entry was recorded successfully!\n";
     this_thread::sleep_for(chrono::seconds(1));
     cout << "\nPress Enter to continue...";
@@ -205,15 +209,15 @@ public:
 
     switch (choice) {
     case 1:
-      system("clear");
+      clrscr();
       ViewAllEntries();
       break;
     case 2:
-      system("clear");
+      clrscr();
       EditEntry();
       break;
     case 3:
-      system("clear");
+      clrscr();
       DeleteEntry();
       break;
     case 0:
