@@ -1,4 +1,22 @@
 #include "FuelEntryManager.h"
+#ifdef _WIN32
+#include <Windows.h>
+#endif
+
+void clrscr() {
+#ifdef _WIN32
+  COORD tl = {0, 0};
+  CONSOLE_SCREEN_BUFFER_INFO s;
+  HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+  GetConsoleScreenBufferInfo(console, &s);
+  DWORD written, cells = s.dwSize.X * s.dwSize.Y;
+  FillConsoleOutputCharacter(console, ' ', cells, tl, &written);
+  FillConsoleOutputAttribute(console, s.wAttributes, cells, tl, &written);
+  SetConsoleCursorPosition(console, tl);
+#else
+  cout << "\033[2J\033[H" << flush;
+#endif
+}
 
 class FuelTracker {
 public:
@@ -18,7 +36,7 @@ public:
 
     int choice;
     do {
-      system("clear");
+      clrscr();
       displayMenu();
       cout << "Select Menu Option: ";
       cin >> choice;
@@ -29,19 +47,19 @@ public:
         cout << "Exiting Program.\n";
         break;
       case 1:
-        system("clear");
+        clrscr();
         fuelEntryMgr.AddFuelEntry();
         break;
       case 2:
-        system("clear");
+        clrscr();
         fuelEntryMgr.ManageFuelEntries();
         break;
       case 3:
-        system("clear");
+        clrscr();
         fuelEntryMgr.GenerateReport();
         break;
       default:
-        system("clear");
+        clrscr();
         cout << "Invalid Option: Select 1-3 or 0 to exit.\n";
         this_thread::sleep_for(chrono::seconds(2));
         break;
@@ -56,7 +74,7 @@ private:
 
 int main(int argc, char *argv[]) {
 
-  system("clear");
+  clrscr();
   FuelTracker fueltracker;
   fueltracker.run();
 

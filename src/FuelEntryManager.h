@@ -4,10 +4,17 @@
 #include <limits>
 #include <thread>
 #include <vector>
+#ifdef FUELENTRYMANAGER_H
+#define FUELENTRYMANAGER_H
+
+void clrsrc();
+
+#endif
 
 using namespace std;
 
 // TODO: Add comments for better documentation
+// TODO: Add support for saving and loading data from file
 
 class FuelEntry {
 public:
@@ -58,16 +65,22 @@ public:
   void AddFuelEntry() {
     string date;
     double distanceDriven, fuelConsumed, fuelPrice;
-    cout << "Enter entry date (YYYY-MM-DD): ";
-    getline(cin, date);
+    // TODO: Add validation for date input
+    while (true) {
+      string date_format;
+      cout << "Enter entry date (YYYY-MM-DD): ";
+      getline(cin, date);
+      break;
+    }
 
     // Input and validate distance driven
     while (true) {
       cout << "Enter distance driven (km): ";
       cin >> distanceDriven;
-      cin.ignore(numeric_limits<streamsize>::max(), '\n');
-      if (distanceDriven < 1) {
-        cout << "Distance driven cannot be zero or negative.\n";
+      if (cin.fail() || distanceDriven < 1) {
+        cout << "Invalid input: Enter a valid number above zero.\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         this_thread::sleep_for(chrono::seconds(1));
         continue;
       } else {
@@ -79,10 +92,11 @@ public:
     while (true) {
       cout << "Enter amount of fuel used (L): ";
       cin >> fuelConsumed;
-      cin.ignore(numeric_limits<streamsize>::max(), '\n');
-      if (fuelConsumed < 1) {
-        cout << "Fuel consumed cannot be zero or negative.\n";
-        this_thread::sleep_for(chrono::seconds(2));
+      if (cin.fail() || fuelConsumed < 1) {
+        cout << "Invalid input: Enter a valid number above zero.\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        this_thread::sleep_for(chrono::seconds(1));
         continue;
       } else {
         break;
@@ -93,15 +107,18 @@ public:
     while (true) {
       cout << "Enter cost per liter (₱/L): ";
       cin >> fuelPrice;
-      cin.ignore(numeric_limits<streamsize>::max(), '\n');
-      if (fuelPrice < 0) {
-        cout << "Cost cannot be negative.\n";
-        this_thread::sleep_for(chrono::seconds(2));
+      if (cin.fail() || fuelPrice < 0) {
+        cout << "Invalid input: Enter a valid number above zero.\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        this_thread::sleep_for(chrono::seconds(1));
         continue;
       } else {
         break;
       }
     }
+
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     entries.emplace_back(date, distanceDriven, fuelConsumed, fuelPrice);
 
@@ -118,6 +135,7 @@ public:
            << "| TRIP ENTRY NO. " << i + 1 << endl;
       entries[i].displayEntry();
     }
+    this_thread::sleep_for(chrono::seconds(2));
     cout << "\nPress Enter to continue...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
   }
@@ -132,6 +150,14 @@ public:
            << "| Entry Date : " << entries[i].getEntryDate() << endl
            << "+---------------------------------+\n";
     }
+    cout << "Which entry would you like to edit? ";
+    cin >> choice;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    if (choice >= 1 && choice <= entries.size()) {
+      cout << "WORK IN PROGRESS\n";
+      cout << "This entry was edited successfully.\n";
+    }
+    this_thread::sleep_for(chrono::seconds(1));
     cout << "\nPress Enter to continue...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
   }
@@ -143,7 +169,7 @@ public:
            << "| TRIP ENTRY NO. " << i + 1 << endl
            << "+------------+--------------------+\n"
            << "| Entry Date : " << entries[i].getEntryDate() << endl
-           << "+---------------------------------+\n";
+           << "+------------+--------------------+\n";
     }
     cout << "Which entry would you like to delete? ";
     cin >> choice;
@@ -152,6 +178,7 @@ public:
       entries.erase(entries.begin() + choice - 1);
       cout << "This entry was removed successfully.\n";
     }
+    this_thread::sleep_for(chrono::seconds(1));
     cout << "\nPress Enter to continue...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
   }
@@ -217,13 +244,13 @@ public:
 
     cout << fixed << setprecision(2);
     cout << "+---------------------------------+\n"
-         << "| EFFICIENCY REPORT               |\n"
-         << "+-----------------------+---------+\n"
-         << "| Total Distance Driven : " << totalDistance << "km\n"
-         << "| Total Fuel Consumed   : " << totalFuelConsumed << "L\n"
-         << "| Fuel Efficiency       : " << fuelEfficiency << "km/L\n"
-         << "| Total Expenses        : " << "₱" << totalExpenses << endl
-         << "+-----------------------+---------+\n";
+         << "| EFFICIENCY REPORT                \n"
+         << "+---------------------+-----------+\n"
+         << "| Total Distance      : " << totalDistance << "km\n"
+         << "| Total Fuel Consumed : " << totalFuelConsumed << "L\n"
+         << "| Fuel Efficiency     : " << fuelEfficiency << "km/L\n"
+         << "| Total Expenses      : " << "₱" << totalExpenses << endl
+         << "+---------------------+-----------+\n";
 
     cout << "\nPress Enter to continue...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
