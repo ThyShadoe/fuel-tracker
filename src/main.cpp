@@ -34,14 +34,17 @@ public:
 
     int choice;
     do {
-      clrscr();
-      displayMenu();
       while (true) {
+        clrscr();
+        displayMenu();
         cout << "Select Menu Option: ";
         cin >> choice;
-        if (cin.fail()) {
+        if (cin.fail() || choice > 3) {
+          clrscr();
+          cout << "Invalid Option: Select 1-3 or 0 to exit.\n";
           cin.clear();
           cin.ignore(numeric_limits<streamsize>::max(), '\n');
+          this_thread::sleep_for(chrono::seconds(2));
           continue;
         } else {
           break;
