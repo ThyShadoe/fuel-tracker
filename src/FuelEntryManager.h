@@ -192,8 +192,10 @@ public:
 
   void ManageFuelEntries() {
     if (entries.empty()) {
-      cout << "There are no recorded entries.\n";
-      this_thread::sleep_for(chrono::seconds(2));
+      cout << "There are no recorded entries yet.\n";
+      this_thread::sleep_for(chrono::seconds(1));
+      cout << "\nPress Enter to continue...";
+      cin.ignore(numeric_limits<streamsize>::max(), '\n');
       return;
     }
     int choice;
@@ -242,8 +244,10 @@ public:
 
   void GenerateReport() {
     if (entries.empty()) {
-      cout << "There are no recorded entries.\n";
-      this_thread::sleep_for(chrono::seconds(2));
+      cout << "There are no recorded entries yet.\n";
+      this_thread::sleep_for(chrono::seconds(1));
+      cout << "\nPress Enter to continue...";
+      cin.ignore(numeric_limits<streamsize>::max(), '\n');
       return;
     }
 
