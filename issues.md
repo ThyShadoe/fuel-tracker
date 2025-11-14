@@ -1,39 +1,52 @@
-# Fuel Efficiency Tracker
+# BUG TRACKER - ThyShadoe/fuel-tracker
 
-## Bug Tracker
+## SYNTAX ERROR
 
-### Syntax Errors
+| CHECK | INFO |
+| ------------- | -------------- |
+| PRIORITY | Low |
+| STATUS   | Fixed |
+| ERROR    | Functions were unable to work as expected  |
+| FIX      | Removed misplaced `}` symbol |
 
-### Runtime Errors
+## RUNTIME ERROR
 
-#### 2025-11-07_RUNTIME_ERR_1
+### 2025-11-07_RUNTIME_ERR_1
 
-PRIORITY : High
+| CHECK | INFO |
+| ------------- | -------------- |
+| PRIORITY | High |
+| STATUS   | Fixed |
+| ERROR    | Crashed when going to `[3] Generate Report`  |
+| FIX      | Changed incorrect value in for loop |
 
-STATUS   : Resolved
 
-ERROR    : `/usr/include/c++/15.2.1/bits/stl_vector.h:1263: constexpr std::vector< <template-parameter-1-1>, <template-parameter-1-2> >::reference std::vector< <template-parameter-1-1>, <template-parameter-1-2> >::operator[](size_type) [with _Tp = FuelEntry; _Alloc = std::allocator<FuelEntry>; reference = FuelEntry&; size_type = long unsigned int]: Assertion '__n < this->size()' failed.`
+## LOGICAL ERROR
 
-FIX      : changed value in for loop from `int = 0` to `int = 1`
+### 2025-11-07_LOGIC_ERR_0
 
-### Logical Errors
+| CHECK | INFO |
+| ------------- | -------------- |
+| PRIORITY | High |
+| STATUS   | Fixed |
+| ERROR    | Date input is skipped when entering new fuel entry |
+| FIX      | Add `cin.ignore` in main menu input
 
-#### 2025-11-07_LOGIC_ERR_0
+### 2025-11-07_LOGIC_ERR_1
 
-PRIORITY : High
+| CHECK | INFO |
+| ------------- | -------------- |
+| PRIORITY | High |
+| STATUS   | Fixed |
+| ERROR    | Permaloop when entering an invalid value in input field |
+| FIX      | Add validation function in every input field.
 
-STATUS   : Resolved
+### 2025-11-14_LOGIC_ERR_2
 
-ERROR    : Date input is skipped whenever entering a new fuel entry.
+| CHECK | INFO |
+| ------------- | -------------- |
+| PRIORITY | High |
+| STATUS   | Fixed |
+| ERROR    | Date input would get stuck with incorrect value |
+| FIX      | Removed `cin.clear()` and `cin.ignore()` in validation |
 
-FIX      : Added `cin.ignore` for main menu input.
-
-#### 2025-11-07_LOGIC_ERR_1
-
-PRIORITY : Medium
-
-STATUS   : Unresolved
-
-ERROR    : Loop error when you enter any letter to a double input (ex. Odometer Reading).
-
-FIX      : N/A

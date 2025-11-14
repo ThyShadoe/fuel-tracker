@@ -38,15 +38,13 @@ public:
 
   // Setters to set a specific value to a variable
   void setEntryDate(const string &date) { this->date = date; }
-  void setDistanceDriven(const double kilometersDriven) {
-    this->distanceDriven = kilometersDriven;
+  void setDistanceDriven(const double distanceDriven) {
+    this->distanceDriven = distanceDriven;
   }
-  void setFuelConsumed(const double litersUsed) {
-    this->fuelConsumed = litersUsed;
+  void setFuelConsumed(const double fuelConsumed) {
+    this->fuelConsumed = fuelConsumed;
   }
-  void setFuelPrice(const double costPerLiter) {
-    this->fuelPrice = costPerLiter;
-  }
+  void setFuelPrice(const double fuelPrice) { this->fuelPrice = fuelPrice; }
 
   // Function to display fuel entry
   void displayEntry() {
@@ -71,12 +69,20 @@ public:
   void AddFuelEntry() {
     string date;
     double distanceDriven, fuelConsumed, fuelPrice;
-    // TODO: Add validation for date input
+
+    // Input and validate date string
     while (true) {
-      regex date_format;
+      const regex dateFormat(
+          R"(^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$)");
       cout << "Enter entry date (YYYY-MM-DD): ";
       getline(cin, date);
-      break;
+      if (!regex_match(date, dateFormat)) {
+        cout << "Invalid format: Enter a valid date with YYYY-MM-DD format.\n";
+        this_thread::sleep_for(chrono::seconds(1));
+        continue;
+      } else {
+        break;
+      }
     }
 
     // Input and validate distance driven
@@ -147,8 +153,9 @@ public:
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
   }
 
-  // TODO: Add functionality to edit entries
   void EditEntry() {
+    string date;
+    double distanceDriven, fuelConsumed, fuelPrice;
     int choice;
     for (int i = 0; i < entries.size(); i++) {
       cout << "+---------------------------------+\n"
@@ -161,7 +168,76 @@ public:
     cin >> choice;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     if (choice >= 1 && choice <= entries.size()) {
-      cout << "WORK IN PROGRESS\n";
+      FuelEntry &entry = entries[choice - 1];
+      while (true) {
+        const regex dateFormat(
+            R"(^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$)");
+        cout << "Current: " << entry.getEntryDate() << endl;
+        cout << "Enter entry date (YYYY-MM-DD): ";
+        getline(cin, date);
+        if (!regex_match(date, dateFormat)) {
+          cout
+              << "Invalid format: Enter a valid date with YYYY-MM-DD format.\n";
+          this_thread::sleep_for(chrono::seconds(1));
+          continue;
+        } else {
+          break;
+        }
+      }
+
+      // Input and validate distance driven
+      while (true) {
+        cout << "Current: " << entry.getDistanceDriven() << endl;
+        cout << "Enter distance driven (km): ";
+        cin >> distanceDriven;
+        if (cin.fail() || distanceDriven < 1) {
+          cout << "Invalid input: Enter a valid number above zero.\n";
+          cin.clear();
+          cin.ignore(numeric_limits<streamsize>::max(), '\n');
+          this_thread::sleep_for(chrono::seconds(1));
+          continue;
+        } else {
+          break;
+        }
+      }
+
+      // Input and validate fuel consumed
+      while (true) {
+        cout << "Current: " << entry.getFuelConsumed() << endl;
+        cout << "Enter amount of fuel used (L): ";
+        cin >> fuelConsumed;
+        if (cin.fail() || fuelConsumed < 1) {
+          cout << "Invalid input: Enter a valid number above zero.\n";
+          cin.clear();
+          cin.ignore(numeric_limits<streamsize>::max(), '\n');
+          this_thread::sleep_for(chrono::seconds(1));
+          continue;
+        } else {
+          break;
+        }
+      }
+
+      // Input and validate fuel price
+      while (true) {
+        cout << "Current: " << entry.getFuelPrice() << endl;
+        cout << "Enter cost per liter (₱/L): ";
+        cin >> fuelPrice;
+        if (cin.fail() || fuelPrice < 0) {
+          cout << "Invalid input: Enter a valid number above zero.\n";
+          cin.clear();
+          cin.ignore(numeric_limits<streamsize>::max(), '\n');
+          this_thread::sleep_for(chrono::seconds(1));
+          continue;
+        } else {
+          break;
+        }
+      }
+      entry.setEntryDate(date);
+      entry.setDistanceDriven(distanceDriven);
+      entry.setFuelConsumed(fuelConsumed);
+      entry.setFuelPrice(fuelPrice);
+
+      cin.ignore(numeric_limits<streamsize>::max(), '\n');
       cout << "This entry was edited successfully.\n";
     }
     this_thread::sleep_for(chrono::seconds(1));
@@ -199,19 +275,20 @@ public:
       return;
     }
     int choice;
-    cout << "+---------------------------------+\n"
-         << "| MANAGE ENTRIES                  |\n"
-         << "+---------------------------------+\n"
-         << "| [1] View All Entries            |\n"
-         << "| [2] Edit An Entry               |\n"
-         << "| [3] Delete An Entry             |\n"
-         << "+---------------------------------+\n"
-         << "| [0] Exit                        |\n"
-         << "+---------------------------------+\n";
     while (true) {
+      clrscr();
+      cout << "+---------------------------------+\n"
+           << "| MANAGE ENTRIES                  |\n"
+           << "+---------------------------------+\n"
+           << "| [1] View All Entries            |\n"
+           << "| [2] Edit An Entry               |\n"
+           << "| [3] Delete An Entry             |\n"
+           << "+---------------------------------+\n"
+           << "| [0] Exit                        |\n"
+           << "+---------------------------------+\n";
       cout << "Select Menu Option: ";
       cin >> choice;
-      if (cin.fail()) {
+      if (cin.fail() || choice > 3) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         continue;
