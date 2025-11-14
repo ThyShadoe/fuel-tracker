@@ -20,7 +20,7 @@ void clrscr();
 using namespace std;
 
 // TODO: Add comments for better documentation
-// TODO: Add support for saving and loading data from file
+// TODO: OPTIONAL: Add support for saving and loading data from file
 
 class FuelEntry {
 public:
