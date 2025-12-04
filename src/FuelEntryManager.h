@@ -30,13 +30,13 @@ public:
       : date(entryDate), distanceDriven(distance), fuelConsumed(amount),
         fuelPrice(price) {}
 
-  // Getters to return the specific value of a variable
+  // Getters to return the specific value of a variable.
   string getEntryDate() const { return date; }
   double getDistanceDriven() const { return distanceDriven; }
   double getFuelConsumed() const { return fuelConsumed; }
   double getFuelPrice() const { return fuelPrice; }
 
-  // Setters to set a specific value to a variable
+  // Setters to set a specific value to a variable.
   void setEntryDate(const string &date) { this->date = date; }
   void setDistanceDriven(const double distanceDriven) {
     this->distanceDriven = distanceDriven;
@@ -46,7 +46,7 @@ public:
   }
   void setFuelPrice(const double fuelPrice) { this->fuelPrice = fuelPrice; }
 
-  // Function to display fuel entry
+  // Function to display fuel entry.
   void displayEntry() {
     cout << fixed << setprecision(2);
     cout << "+-----------------+---------------+\n"
@@ -70,7 +70,7 @@ public:
     string date;
     double distanceDriven, fuelConsumed, fuelPrice;
 
-    // Input and validate date string
+    // Input and validate date string.
     while (true) {
       const regex dateFormat(
           R"(^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$)");
@@ -85,7 +85,7 @@ public:
       }
     }
 
-    // Input and validate distance driven
+    // Input and validate distance driven.
     while (true) {
       cout << "Enter distance driven (km): ";
       cin >> distanceDriven;
@@ -100,7 +100,7 @@ public:
       }
     }
 
-    // Input and validate fuel consumed
+    // Input and validate fuel consumed.
     while (true) {
       cout << "Enter amount of fuel used (L): ";
       cin >> fuelConsumed;
@@ -115,7 +115,7 @@ public:
       }
     }
 
-    // Input and validate fuel price
+    // Input and validate fuel price.
     while (true) {
       cout << "Enter cost per liter (₱/L): ";
       cin >> fuelPrice;
@@ -132,10 +132,10 @@ public:
 
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
+    // Return these values to the FuelEntry class.
     entries.emplace_back(date, distanceDriven, fuelConsumed, fuelPrice);
 
     clrscr();
-    // clrscr();
     cout << "Trip entry was recorded successfully!\n";
     this_thread::sleep_for(chrono::seconds(1));
     cout << "\nPress Enter to continue...";
@@ -169,6 +169,8 @@ public:
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     if (choice >= 1 && choice <= entries.size()) {
       FuelEntry &entry = entries[choice - 1];
+
+      // Input and validate date string.
       while (true) {
         const regex dateFormat(
             R"(^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$)");
@@ -185,7 +187,7 @@ public:
         }
       }
 
-      // Input and validate distance driven
+      // Input and validate distance driven.
       while (true) {
         cout << "Current: " << entry.getDistanceDriven() << endl;
         cout << "Enter distance driven (km): ";
@@ -201,7 +203,7 @@ public:
         }
       }
 
-      // Input and validate fuel consumed
+      // Input and validate fuel consumed.
       while (true) {
         cout << "Current: " << entry.getFuelConsumed() << endl;
         cout << "Enter amount of fuel used (L): ";
@@ -217,7 +219,7 @@ public:
         }
       }
 
-      // Input and validate fuel price
+      // Input and validate fuel price.
       while (true) {
         cout << "Current: " << entry.getFuelPrice() << endl;
         cout << "Enter cost per liter (₱/L): ";
@@ -232,6 +234,8 @@ public:
           break;
         }
       }
+
+      // Set the new values for the specified entry earlier.
       entry.setEntryDate(date);
       entry.setDistanceDriven(distanceDriven);
       entry.setFuelConsumed(fuelConsumed);
@@ -267,6 +271,7 @@ public:
   }
 
   void ManageFuelEntries() {
+    // Returns user to the main menu if there are no recorded entries.
     if (entries.empty()) {
       cout << "There are no recorded entries yet.\n";
       this_thread::sleep_for(chrono::seconds(1));
@@ -274,6 +279,7 @@ public:
       cin.ignore(numeric_limits<streamsize>::max(), '\n');
       return;
     }
+
     int choice;
     while (true) {
       clrscr();
@@ -284,7 +290,7 @@ public:
            << "| [2] Edit An Entry               |\n"
            << "| [3] Delete An Entry             |\n"
            << "+---------------------------------+\n"
-           << "| [0] Exit                        |\n"
+           << "| [0] Return                      |\n"
            << "+---------------------------------+\n";
       cout << "Select Menu Option: ";
       cin >> choice;
@@ -320,6 +326,7 @@ public:
   }
 
   void GenerateReport() {
+    // Returns user to the main menu if there are no recorded entries.
     if (entries.empty()) {
       cout << "There are no recorded entries yet.\n";
       this_thread::sleep_for(chrono::seconds(1));
