@@ -119,7 +119,7 @@ public:
     while (true) {
       cout << "Enter cost per liter (₱/L): ";
       cin >> fuelPrice;
-      if (cin.fail() || fuelPrice < 0) {
+      if (cin.fail() || fuelPrice < 1) {
         cout << "Invalid input: Enter a valid number above zero.\n";
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -224,7 +224,7 @@ public:
         cout << "Current: " << entry.getFuelPrice() << endl;
         cout << "Enter cost per liter (₱/L): ";
         cin >> fuelPrice;
-        if (cin.fail() || fuelPrice < 0) {
+        if (cin.fail() || fuelPrice < 1) {
           cout << "Invalid input: Enter a valid number above zero.\n";
           cin.clear();
           cin.ignore(numeric_limits<streamsize>::max(), '\n');
