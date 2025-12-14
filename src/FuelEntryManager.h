@@ -19,9 +19,6 @@ void clrscr();
 
 using namespace std;
 
-// TODO: Add comments for better documentation
-// TODO: OPTIONAL: Add support for saving and loading data from file
-
 class FuelEntry {
 public:
   // Constructor
