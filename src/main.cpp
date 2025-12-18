@@ -18,19 +18,21 @@ void clrscr() {
 class FuelTracker {
 public:
   void displayMenu() {
-    cout << "+---------------------------------+\n"
-         << "| VEHICLE FUEL EFFICIENCY TRACKER |\n"
-         << "+---------------------------------+\n"
-         << "| [1] Add Fuel Entry              |\n"
-         << "| [2] Manage Entries              |\n"
-         << "| [3] Generate Report             |\n"
-         << "+---------------------------------+\n"
-         << "| [0] Exit Program                |\n"
-         << "+---------------------------------+\n";
+    cout << "╭────────────────────────────────╮\n"
+         << "│    FUEL EFFICIENCY TRACKER    │\n"
+         << "├────────────────────────────────┤\n"
+         << "│ [1]  Record Entry             │\n"
+         << "│ [2] 󰁨 Manage Entries           │\n"
+         << "│ [3] 󰈙 View Report              │\n"
+         << "│ [4]  Settings                 │\n"
+         << "├────────────────────────────────┤\n"
+         << "│ [0] 󰈆 Exit Program             │\n"
+         << "╰────────────────────────────────╯\n";
   }
 
   void run() {
 
+    const int MAX_CHOICE = 4;
     int choice;
     do {
       while (true) {
@@ -38,7 +40,7 @@ public:
         displayMenu();
         cout << "Select Menu Option: ";
         cin >> choice;
-        if (cin.fail() || choice > 3) {
+        if (cin.fail() || choice > MAX_CHOICE) {
           cin.clear();
           cin.ignore(numeric_limits<streamsize>::max(), '\n');
           continue;
@@ -63,11 +65,6 @@ public:
       case 3:
         clrscr();
         fuelEntryMgr.GenerateReport();
-        break;
-      default:
-        clrscr();
-        cout << "Invalid Option: Select 1-3 or 0 to exit.\n";
-        this_thread::sleep_for(chrono::seconds(2));
         break;
       }
 

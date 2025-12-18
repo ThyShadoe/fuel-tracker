@@ -46,12 +46,12 @@ public:
   // Function to display fuel entry.
   void displayEntry() {
     cout << fixed << setprecision(2);
-    cout << "+-----------------+---------------+\n"
-         << "| Entry Date      : " << date << endl
-         << "| Distance Driven : " << distanceDriven << "km\n"
-         << "| Fuel Used       : " << fuelConsumed << "L\n"
-         << "| Cost Per Liter  : " << "₱" << fuelPrice << endl
-         << "+-----------------+---------------+\n";
+    cout << "├───┬─────────────────┬───────────\n"
+         << "│  │ Entry Date      │ " << date << endl
+         << "│ 󰑢 │ Distance Driven │ " << distanceDriven << "km\n"
+         << "│ 󰟊 │ Fuel Consumed   │ " << fuelConsumed << "L\n"
+         << "│  │ Fuel Cost       │ " << "₱" << fuelPrice << endl
+         << "╰───┴─────────────────┴───────────\n";
   }
 
 private:
@@ -141,8 +141,8 @@ public:
 
   void ViewAllEntries() {
     for (int i = 0; i < entries.size(); i++) {
-      cout << "+---------------------------------+\n"
-           << "| TRIP ENTRY NO. " << i + 1 << endl;
+      cout << "╭─────────────────────────────────\n"
+           << "│ 󰈙 TRIP ENTRY NO. " << i + 1 << endl;
       entries[i].displayEntry();
     }
     this_thread::sleep_for(chrono::seconds(1));
@@ -280,15 +280,15 @@ public:
     int choice;
     while (true) {
       clrscr();
-      cout << "+---------------------------------+\n"
-           << "| MANAGE ENTRIES                  |\n"
-           << "+---------------------------------+\n"
-           << "| [1] View All Entries            |\n"
-           << "| [2] Edit An Entry               |\n"
-           << "| [3] Delete An Entry             |\n"
-           << "+---------------------------------+\n"
-           << "| [0] Return                      |\n"
-           << "+---------------------------------+\n";
+      cout << "╭────────────────────────────────╮\n"
+           << "│  󰁨  MANAGE ENTRIES             │\n"
+           << "├────────────────────────────────┤\n"
+           << "│ [1] 󰈈 View Entries             │\n"
+           << "│ [2] 󰷈 Edit Entry               │\n"
+           << "│ [3] 󰩹 Delete Entry             │\n"
+           << "├────────────────────────────────┤\n"
+           << "│ [0] 󰈆 Return                   │\n"
+           << "╰────────────────────────────────╯\n";
       cout << "Select Menu Option: ";
       cin >> choice;
       if (cin.fail() || choice > 3) {
